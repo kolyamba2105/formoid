@@ -15,7 +15,7 @@ import { UnknownRecord, forEach } from "./Record";
 
 export function useFieldArrayState<T extends UnknownRecord>(initialValues: Array<T>) {
   const persistentInitialValues = useRef(initialValues);
-  const [state, setState] = useState(persistentInitialValues.current.map(initializeForm));
+  const [state, setState] = useState(() => persistentInitialValues.current.map(initializeForm));
 
   const errors = useMemo(() => state.map(getErrors), [state]);
   const values = useMemo(() => state.map(getValues), [state]);
@@ -38,12 +38,9 @@ export function useFieldArrayState<T extends UnknownRecord>(initialValues: Array
   const remove = useCallback((index: number) => {
     setState(deleteAt(index));
   }, []);
-  const reset = useCallback(
-    (update?: Update<Array<T>>) => {
-      setState((update?.(values) ?? persistentInitialValues.current).map(initializeForm));
-    },
-    [values],
-  );
+  const reset = useCallback((update?: Update<Array<T>>) => {
+    setState((state) => (update?.(state.map(getValues)) ?? persistentInitialValues.current).map(initializeForm));
+  }, []);
   const setErrors: SetFieldArrayErrors<T> = useCallback((index, key, errors) => {
     setState(modifyAt(index, (group) => formStateManager(group).setErrors(key, errors)));
   }, []);
