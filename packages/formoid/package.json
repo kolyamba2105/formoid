@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/node": "^20.8.3",
     "@types/react": ">=17.0.0",
+    "eslint": "^8.56.0",
     "eslint-config-formoid": "workspace:*",
     "prettier": "^3.2.5",
     "prettier-config-formoid": "workspace:*",
