@@ -1,5 +1,11 @@
 # formoid
 
+## 2.2.3
+
+### Patch Changes
+
+- 092b6b5: Fix stale form values in setValues and reset (thanks to `non25`)
+
 ## 2.2.2
 
 ### Patch Changes
